@@ -42,6 +42,7 @@
             </div>
             <input id ="login" type="submit" class="fadeIn fourth" value="Log In">
             <input id ="create" type="submit" class="fadeIn fifth" value="Create Account">
+            
         <!-- </form> -->
         </form>
 
@@ -108,17 +109,7 @@
     const formElem = document.querySelector('form');
 
 
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            // User is signed in.
-            document.getElementById("status").innerHTML = "Signed in as " + user.email;
-            // ...
-        } else {
-            // User is signed out.
-            document.getElementById("status").innerHTML = "Not Logged In";
-            // ...
-        }
-    });
+
 
     formElem.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -136,6 +127,22 @@
 
         formElem.reset();
 
+    });
+
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            // User is signed in.
+            document.getElementById("status").innerHTML = "Signed in as " + user.email;
+            // window.location = '/homepage.html';
+            window.location = '../uscmarketplace/dashboard.html';
+
+            // ...
+        } else {
+            // User is signed out.
+            document.getElementById("status").innerHTML = "Not Logged In";
+            // ...
+        }
     });
 
 </script>
