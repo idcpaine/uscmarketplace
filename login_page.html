@@ -41,7 +41,9 @@
             <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
             </div>
             <input id ="login" type="submit" class="fadeIn fourth" value="Log In">
-            <input id ="create" type="submit" class="fadeIn fifth" value="Create Account">
+            <!-- <input id ="create" type="button" class="fadeIn fifth" value="Create Account"> -->
+            <button id ="create" type="button">Create Account</button>
+
             
         <!-- </form> -->
         </form>
@@ -83,8 +85,9 @@
 
     const signupForm = document.querySelector('#myForm');
 
-        signupForm.addEventListener('submit', (e) =>{
-            e.preventDefault();
+        // signupForm.addEventListener('button', (e) =>{
+        document.getElementById("create").addEventListener("click", function() {
+            // e.preventDefault();
             const inpemail = signupForm['email'].value;
             const inppass = signupForm['password'].value;
             const domain = inpemail.substring(inpemail.indexOf("@"), inpemail.length);
@@ -113,8 +116,10 @@
 
     formElem.addEventListener('submit', (e) => {
         e.preventDefault();
-
+        console.log("login password"+document.querySelector('#password').innerHTML);
+        console.log("login email"+document.querySelector('#email').innerHTML);
         firebase.auth().signInWithEmailAndPassword(document.querySelector('#email').value, document.querySelector('#password').value).catch(function(error) {
+
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
