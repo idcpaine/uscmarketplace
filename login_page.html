@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="login_page.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>USC Marketplace</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <!-- Signature pad script  -->
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-light" style="background-color: #ffffff; ">
-    <a id="navbar-brand">USC Marketplace</a>
+
 </nav>
 
 <br>
@@ -63,8 +64,9 @@
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-storage.js"></script>
 
 <script>
     // Your web app's Firebase configuration: You should put your own keys here!
@@ -82,6 +84,7 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
+    var db = firebase.firestore();
 
 
     const signupForm = document.querySelector('#myForm');
@@ -97,10 +100,18 @@
                 document.getElementById("status").innerHTML = "Error: needs to be a usc email";
             }
             else{
-                console.log("entered usc.edu"); 
+                console.log("entered usc.edu");
                 firebase.auth().createUserWithEmailAndPassword(inpemail, inppass).then( cred =>{
-                 
-
+                    console.log("User id is: ", cred.user.id);
+                    db.collection("users").doc(cred.user.uid).set({
+                        email: inpemail
+                    })
+                    .then(() => {
+                        console.log("User successfully written!");
+                    })
+                    .catch((error) => {
+                        console.error("Error writing user: ", error);
+                    });
                 })
             }
 
@@ -141,7 +152,7 @@
             // User is signed in.
             document.getElementById("status").innerHTML = "Signed in as " + user.email;
             // window.location = '/homepage.html';
-            window.location = '../uscmarketplace/dashboard.html';
+            //window.location = '../uscmarketplace/dashboard.html';
 
             // ...
         } else {
