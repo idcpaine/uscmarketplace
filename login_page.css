@@ -6,7 +6,7 @@
 }
 
 html {
-    background-color: #56baed;
+    background-color: #9D2235;
 }
 
 body {
@@ -78,24 +78,24 @@ h2.inactive {
 
 h2.active {
     color: #0d0d0d;
-    border-bottom: 2px solid #5fbae9;
+    border-bottom: 2px solid rgba(193, 24, 24, 0.46);
 }
 
 
 
 /* FORM TYPOGRAPHY*/
-
-input[type=button], input[type=submit], input[type=reset]  {
-    background-color: #56baed;
+/*Login Button CSS*/
+button[type=button], input[type=submit], input[type=reset]  {
+    background-color: #9d2235;
     border: none;
     color: white;
-    padding: 15px 80px;
+    padding: 15px 50px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     text-transform: uppercase;
     font-size: 13px;
-    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    -webkit-box-shadow: 0 10px 30px 0 rgba(236, 78, 78, 0.82);
     box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
@@ -107,11 +107,11 @@ input[type=button], input[type=submit], input[type=reset]  {
     transition: all 0.3s ease-in-out;
 }
 
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
-    background-color: #39ace7;
+button[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+    background-color: #cd4758;
 }
 
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+button[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
     -moz-transform: scale(0.95);
     -webkit-transform: scale(0.95);
     -o-transform: scale(0.95);
@@ -119,10 +119,10 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
     transform: scale(0.95);
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
     background-color: #f6f6f6;
     border: none;
-    color: #0d0d0d;
+    color: #c11818;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -140,12 +140,12 @@ input[type=text] {
     border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+input[type=text], input[type=password]:focus {
     background-color: #fff;
-    border-bottom: 2px solid #5fbae9;
+    border-bottom: 2px solid #ffc72c;
 }
 
-input[type=text]:placeholder {
+input[type=text], input[type=password]::placeholder {
     color: #cccccc;
 }
 
