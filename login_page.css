@@ -6,10 +6,10 @@
 
 html {
     background-color: #9D2235;
+    font-family: "Montserrat";
 }
 
 body {
-    font-family: "Poppins", sans-serif;
     height: 100vh;
 }
 #pictures{
@@ -35,7 +35,6 @@ body {
 #navbar-brand {
     color: #9D2235;
     font-size: xxx-large;
-    font-family: "Poppins", sans-serif;
     margin: auto;
 }
 
