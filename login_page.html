@@ -16,9 +16,9 @@
 </nav>
 
 <br>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="wrapper fadeInDown">
@@ -29,19 +29,26 @@
         <div class="fadeIn first">
             <img src="https://viterbi.usc.edu/directory/images/f63135c17a6d1de62db55dd4de3ffb50.png" id="icon" alt="User Icon" />
         </div>
-
+        <p id='status'>Not Logged In</p>
+        <form id="myForm" class="form">
+          
         <!-- Login Form -->
-        <form>
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-            <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-            <input type="submit" class="fadeIn fourth" value="Log In">
-            <input type="submit" class="fadeIn fifth" value="Create Account">
+        <!-- <form> -->
+            <div class="form-group">
+                <input type="text" id="email" class="fadeIn second" name="email" placeholder="email">
+            </div>
+            <div class="form-group">
+            <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+            </div>
+            <input id ="login" type="submit" class="fadeIn fourth" value="Log In">
+            <input id ="create" type="submit" class="fadeIn fifth" value="Create Account">
+        <!-- </form> -->
         </form>
 
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
+        <!-- Remind Password -->
+        <!-- <div id="formFooter">
             <a class="underlineHover" href="#">Forgot Password?</a>
-        </div>
+        </div> -->
 
     </div>
 </div>
@@ -60,10 +67,43 @@
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     var firebaseConfig = {
         // Your Firebase API keys here
+        apiKey: "AIzaSyDggC7QCB9qvUa9sT9DgWn50djUDzR3_T0",
+        authDomain: "uscmarketplace.firebaseapp.com",
+        projectId: "uscmarketplace",
+        storageBucket: "uscmarketplace.appspot.com",
+        messagingSenderId: "432656718742",
+        appId: "1:432656718742:web:9f34948f88a687987d9bb7",
+        measurementId: "G-LSPEZ0QTC0"
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
+
+
+    const signupForm = document.querySelector('#myForm');
+
+        signupForm.addEventListener('submit', (e) =>{
+            e.preventDefault();
+            const inpemail = signupForm['email'].value;
+            const inppass = signupForm['password'].value;
+            const domain = inpemail.substring(inpemail.indexOf("@"), inpemail.length);
+            console.log(domain);
+            if(domain != "@usc.edu"){
+                document.getElementById("status").innerHTML = "Error: needs to be a usc email";
+            }
+            else{
+                console.log("entered usc.edu"); 
+                firebase.auth().createUserWithEmailAndPassword(inpemail, inppass).then( cred =>{
+                 
+
+                })
+            }
+
+         formElem.reset();
+
+
+        }) 
+
 
     const formElem = document.querySelector('form');
 
@@ -88,6 +128,7 @@
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorCode);
+            console.log(errorMessage);
 
             document.getElementById("status").innerHTML = "Error: " + errorMessage;
             // ...
