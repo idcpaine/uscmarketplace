@@ -1,8 +1,7 @@
 /* BASIC */
 
 .navbar {
-    border-style: solid;
-    border-width: thin;
+
 }
 
 html {
@@ -14,8 +13,15 @@ body {
     height: 100vh;
 }
 
+#navbar-brand {
+    color: #9D2235;
+    font-size: xxx-large;
+    font-family: "Poppins", sans-serif;
+    margin: auto;
+}
+
 a {
-    color: #92badd;
+    color: #9D2235;
     display:inline-block;
     text-decoration: none;
     font-weight: 400;
@@ -89,7 +95,7 @@ button[type=button], input[type=submit], input[type=reset]  {
     background-color: #9d2235;
     border: none;
     color: white;
-    padding: 15px 50px;
+    padding: 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -105,6 +111,7 @@ button[type=button], input[type=submit], input[type=reset]  {
     -ms-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    width: 150px;
 }
 
 button[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
