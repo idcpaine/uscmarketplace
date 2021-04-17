@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="dashboard.css" >
+    <link rel="stylesheet"  href="dashboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -12,7 +13,12 @@
     <a href="#">Textbooks</a>
     <a href="#">Furniture</a>
     <a href="#">Study Materials</a>
-    <a href="#">Miscellaneous</a>
+    <a href="#">Subleasing</a>
+    <a href="#">Tickets</a>
+    <a href="#">Electronics</a>
+    <a href="#">Sporting Goods</a>
+    <a href="#">Clothing & Accessories</a>
+    <a href="#">Food & Dining Hall Swipes</a>
   </div>
   
 <button class="openbtn" onclick="openNav()">&#9776; Browse by Category</button>
@@ -22,6 +28,91 @@
     <button type="button" onclick="firebase.auth().signOut()" class="button"><span>Log Out</span> </button>
     <p id='status'>Not Logged In</p>
 
+
+
+<!-- CARDS WITH THREADS -->
+<!-- first row -->
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <img src="resources/chair.png" alt="furniture" style="width:50%">
+            <div class="container">
+              <h4><b>Furniture</b></h4>
+            </div>
+          </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <img src="resources/books.png" alt="textbooks" style="width:50%">
+            <div class="container">
+              <h4><b>Textbooks</b></h4>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <img src="resources/house.png" alt="study materials" style="width:50%">
+            <div class="container">
+              <h4><b>Subleasing</b></h4>
+            </div>
+        </div>
+    </div>
+  </div>
+<!-- second row -->
+<div class="row">
+    <div class = "column">
+        <div class="card">
+            <img src="resources/folder.png" alt="subleasing" style="width:50%">
+            <div class="container">
+              <h4><b>Study Materials</b></h4>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <img src="resources/ticket.png" alt="tickets" style="width:50%">
+            <div class="container">
+              <h4><b>Tickets</b></h4>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <img src="resources/laptop.png" alt="electronics" style="width:50%">
+            <div class="container">
+              <h4><b>Electronics</b></h4>
+            </div>
+        </div>
+    </div>
+  </div>
+<!-- third row -->
+<div class="row">
+    <div class = "column">
+        <div class="card">
+            <img src="resources/bike.png" alt="sporting goods" style="width:50%">
+            <div class="container">
+              <h4><b>Sporting Goods</b></h4>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <img src="resources/shirt.png" alt="chlothing and accessories" style="width:50%">
+            <div class="container">
+              <h4><b>Clothing & Accessories</b></h4>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <img src="resources/pizza.png" alt="food" style="width:50%">
+            <div class="container">
+              <h4><b>Food & Dining Hall Swipes</b></h4>
+            </div>
+        </div>
+    </div>
+  </div>
+<!-- END CARDS WITH THREADS -->
 
 
 <!-- firebase -->

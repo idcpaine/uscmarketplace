@@ -1,11 +1,11 @@
 /* SIDEBAR CSS */
-body {
-    font-family: "Poppins", sans-serif;
+html {
+    font-family: "Montserrat";
 }
 
 /* The sidepanel menu */
 .sidepanel {
-    height: 250px; /* Specify a height */
+    height: 500px; /* Specify a height */
     width: 0; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
@@ -49,8 +49,56 @@ body {
     color: #9D2235;
     padding: 10px 15px;
     border: none;
+    font-family: "Montserrat";
   }
   
   .openbtn:hover {
     background-color: #c4991f;
   }
+
+
+
+/* CARD CSS */
+
+.categoryCards {
+    padding: 30;
+}
+
+h4 {
+    color: #9D2235;
+    font-size: 1vw;
+    font-weight: bold;
+}
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 2px 4px 0 rgba(97, 8, 8, 0.2);
+    transition: 0.3s;
+    padding: 20px;
+  }
+  
+  /* On mouse-over, add a deeper shadow */
+  .card:hover {
+    box-shadow: 0 60px 80px 0 rgba(97,8,8,0.2);
+  }
+  
+  /* Add some padding inside the card container */
+  .container {
+    padding: 2px 16px;
+  }
+
+/* COLUMN CSS */
+.column {
+    float: left;
+    width: 25%;
+    padding-left: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
