@@ -2,5 +2,44 @@
 <html>
 <head>
     <h1>DASHBOARD</h1>
- </head>
- </html>
+    <button type="button" onclick="firebase.auth().signOut()" class="button"><span>Log Out</span> </button>
+    <p id='status'>Not Logged In</p>
+</head>
+<!-- firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-storage.js"></script>
+ 
+  
+<script>
+    var firebaseConfig = {
+        // I inserted the API keys here from the firebase website
+        apiKey: "AIzaSyDggC7QCB9qvUa9sT9DgWn50djUDzR3_T0",
+        authDomain: "uscmarketplace.firebaseapp.com",
+        projectId: "uscmarketplace",
+        storageBucket: "uscmarketplace.appspot.com",
+        messagingSenderId: "432656718742",
+        appId: "1:432656718742:web:9f34948f88a687987d9bb7",
+        measurementId: "G-LSPEZ0QTC0"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    var db = firebase.firestore();
+firebase.auth().onAuthStateChanged(function(user) {
+    if(user){
+        console.log("user logged in");
+        document.getElementById("status").innerHTML = "You are signed in under the email: " + user.email;
+    }
+    else {
+        console.log("user not logged in");
+        // User is signed out.
+        document.getElementById("status").innerHTML = "Not Logged In";
+        //redirect to login sign up page if not logged in
+        window.location = '../uscmarketplace/login_page.html';
+    }
+});
+</script>
+</html>
