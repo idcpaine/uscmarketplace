@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="newpost.css">
+</head>
+<body>
+    <!-- <form> -->
+        <p id='status'>Not Logged In</p>
+        <form id="postform" class="form">
+            <div class="form-group">
+                <form action="/action_page.php">
+                    <input type="file" id="myFile" name="filename">
+                    
+                </form>
+            </div>
+            <div class="form-group">
+              <label>Title</label>
+              <input type="text" class="form-control" id="title" name="title">
+            </div>
+            <div class="form-group">
+                <label>Price</label>
+                <input type="text" class="form-control" id="price" name="price">
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <input type="text" class="form-control" id="description" name="description">
+              </div>
+              <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+                <div id="myDropdown" class="dropdown-content">
+                  <a href="#">Textbooks</a>
+                  <a href="#">Furniture</a>
+                  <a href="#">Subleasing</a>
+                </div>
+              </div>
+              <button id="submit" type="submit" class="btn btn-outline-info"> Submit </button>
+
+        </form>
+    <!-- </form> -->
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+      <script>
+        // Your web app's Firebase configuration: You should put your own keys here!
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+           // I inserted the API keys here from the firebase website
+        apiKey: "AIzaSyDggC7QCB9qvUa9sT9DgWn50djUDzR3_T0",
+        authDomain: "uscmarketplace.firebaseapp.com",
+        projectId: "uscmarketplace",
+        storageBucket: "uscmarketplace.appspot.com",
+        messagingSenderId: "432656718742",
+        appId: "1:432656718742:web:9f34948f88a687987d9bb7",
+        measurementId: "G-LSPEZ0QTC0"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        var db = firebase.firestore();
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            // User is signed in.
+            document.getElementById("status").innerHTML = "Signed in as " + user.email;
+            // window.location = '/homepage.html';
+
+            // ...
+        } else {
+            // User is signed out.
+            document.getElementById("status").innerHTML = "Not Logged In";
+            // ...
+        }
+        const postForm = document.querySelector('#postform');
+                //saving data
+        console.log("postform: "+postForm.value);
+        
+        postForm.addEventListener('submit', (e) => {
+            console.log("entered submit post");
+            //prevents the entire page from being refreshed
+            e.preventDefault();
+            db.collection('posts').add({
+                title: postForm['title'].value,
+                price: postForm['price'].value,
+                // picture: 
+                description: postForm['description'].value,
+                // user: user.uid,
+                // category: 
+            })
+        })
+    });
+        </script>
+        </body>
+</html>
