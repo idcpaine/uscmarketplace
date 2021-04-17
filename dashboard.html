@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <h1>DASHBOARD</h1>
+    <link rel="stylesheet" href="dashboard.css" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<!-- SIDEBAR HTML -->
+<div id="mySidepanel" class="sidepanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Textbooks</a>
+    <a href="#">Furniture</a>
+    <a href="#">Study Materials</a>
+    <a href="#">Miscellaneous</a>
+  </div>
+  
+<button class="openbtn" onclick="openNav()">&#9776; Browse by Category</button>
+<!-- END SIDEBAR HTML-->
+
+<h1>DASHBOARD</h1>
     <button type="button" onclick="firebase.auth().signOut()" class="button"><span>Log Out</span> </button>
     <p id='status'>Not Logged In</p>
-</head>
+
+
+
 <!-- firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-analytics.js"></script>
@@ -41,5 +60,18 @@ firebase.auth().onAuthStateChanged(function(user) {
         window.location = '../uscmarketplace/login_page.html';
     }
 });
+
+
+// SIDEBAR JAVASCRIPT
+    /* Set the width of the sidebar to 250px (show it) */
+    function openNav() {
+    document.getElementById("mySidepanel").style.width = "270px";
+    }
+
+    /* Set the width of the sidebar to 0 (hide it) */
+    function closeNav() {
+    document.getElementById("mySidepanel").style.width = "0";
+    }
 </script>
+</body>
 </html>
