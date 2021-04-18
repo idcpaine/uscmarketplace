@@ -1,3 +1,60 @@
+.bigClass{
+  margin: auto;
+}
+
+.form-group{
+  align-content: normal;
+}
+
+input[type=text], input[type=tel], select {
+  margin: 8px;
+  align-content: center;
+  width: 40%;
+  max-width: 50%;
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#title_label{
+  margin-left: 455px;
+}
+
+#price_label{
+  margin-left: 450px;
+}
+
+#description_label{
+  margin-left: 400px;
+}
+
+#category_label{
+  margin-left: 420px;
+}
+
+#file_label{
+  margin-left: 405px;
+}
+
+#title{
+  padding-left: 40px;
+}
+
+#price{
+  padding-left: 40px;
+}
+
+#description{
+  padding-left: 40px;
+}
+
+#category{
+  padding-left: 40px;
+  width: 625px;
+}
+
 /* Dropdown Button */
 .dropbtn {
     background-color: #4CAF50;
