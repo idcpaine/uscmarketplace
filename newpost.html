@@ -65,28 +65,23 @@
 
     <!-- <form> -->
         <p id='status'>Not Logged In</p>
+    <div class="bigClass">
         <form id="postform" class="form">
-            <div class="form-group">
-                <label>Image</label>
-                <input id = "file" type = "file" value = "upload">
-
-
-            </div>
-            <div class="form-group">
-              <label>Title</label>
+            <div class="title-group">
+              <label id = "title_label">Title:</label>
               <input type="text" class="form-control" id="title" name="title">
             </div>
-            <div class="form-group">
-                <label>Price</label>
+            <div class="price-group">
+                <label id = "price_label">Price:</label>
                 <input type="text" class="form-control" id="price" name="price">
-              </div>
-              <div class="form-group">
-                <label>Description</label>
+            </div>
+              <div class="description-group">
+                <label id = "description_label">Description:</label>
                 <input type="text" class="form-control" id="description" name="description">
               </div>
               <div class="dropdownNP">
-                <div class="form-group">
-                    <label for="category">Category:</label>
+                <div class="dropdown-group">
+                    <label for="category" id = "category_label">Category:</label>
                     <select id="category" name="category" size="1">
                         <option value="null"></option>
                         <option value="Textbooks">Textbooks</option>
@@ -95,9 +90,13 @@
                     </select><br><br>
                 </div>
               </div>
+            <div class="file-group">
+                <label id="file_label">File Upload: </label>
+                <input id = "file" type = "file" value = "upload">
+            </div><br><br>
               <button id="submit" type="submit" class="btn btn-outline-info"> Submit </button>
-
         </form>
+    </div>
     <!-- </form> -->
 
 <!-- horizontal lines -->
