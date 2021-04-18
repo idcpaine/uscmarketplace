@@ -67,19 +67,19 @@
 <p id='status'>Not Logged In</p>
     <form id="myForm" class="form">
         <div class="form-group">
-          <label>First Name:</label>
+          <label id="label_first">First Name:</label>
           <input type="text" class="form-control" id="first_name" name="first_name">
         </div>
         <div class="form-group">
-            <label>Last Name:</label>
+            <label id="label_last">Last Name:</label>
             <input type="text" class="form-control" id="last_name" name="last_name">
         </div>
         <div class="form-group">
-            <label>Phone Number:</label>
+            <label id="label_phone">Phone Number:</label>
             <input type="tel" class="form-control" id="number" name="number" placeholder="(XXX)-XXX-XXXX">
         </div>
-        <div class="form-group">
-            <label for="year">Status:</label>
+        <div class="form-group" tag="year">
+            <label for="year" id="label_year">Status:</label>
             <select id="year" name="year" size="1">
                 <option value="null"></option>
                 <option value="freshman">Freshman</option>
@@ -90,7 +90,16 @@
                 <option value="alumni">Alumni</option>
             </select><br><br>
         </div>
-        <button id="submit" type="submit"> Submit </button>
+        <div class="main">
+            <button class="button" id="submit" type="submit"> Save </button>
+            <div class="loader">
+                <div class="check">
+                    <span class="check-one"></span>
+                    <span class="check-two"></span>
+                </div>
+            </div>
+
+        </div>
     </form>
 <!-- END FORM -->
 
@@ -180,6 +189,18 @@
             function closeDropdown() {
             document.getElementById("myDropdown").style.height = "0";
             }
+        document.addEventListener('DOMContentLoaded', function () {
+            var btn = document.querySelector('.button'),
+                loader = document.querySelector('.loader'),
+                check = document.querySelector('.check');
 
+            btn.addEventListener('click', function () {
+                loader.classList.add('active');
+            });
+
+            loader.addEventListener('animationend', function() {
+                check.classList.add('active');
+            });
+        });
         </script>
 </html>
