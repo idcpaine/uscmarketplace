@@ -89,7 +89,7 @@
 
         <script>
             //read in the post document
-            var postID = localStorage.getItem("postID");
+            var postID = localStorage.getItem("postid");
             var docRef = db.collection("posts").doc(postID);
             var post = {};
 
@@ -170,8 +170,8 @@
             }
 
             function userInfoClicked() {
-                localStorage.setItem("userid", doc.userID);
-                window.lcation.href = 'profilepage.html';
+                localStorage.setItem("userid", post.userID);
+                window.location.href = 'profilepage.html';
             }
 
             function backButtonPressed() {
