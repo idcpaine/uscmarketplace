@@ -12,10 +12,10 @@
                     <button id="backButton" class="button" onclick="backButtonPressed()">
                         Back
                     </button>
-                    <h1>vintage USC chair</h1>
+                    <h1 id="title">vintage USC chair</h1>
 
-                    <img src="resources/emtpyHeart.png" onclick="toggleLikeButton()">
-                    <img src="resources/emtpyFlag.png" onclick="toggleFlagButton()">
+                    <img src="resources/emtpyHeart.png" width='50' height='50' onclick="toggleLikeButton()">
+                    <img src="resources/reportFlag.png" width='50' height='50' onclick="toggleFlagButton()">
                     
                     <!-- Sharingbutton Facebook -->
                     <a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
@@ -35,9 +35,23 @@
                 </div>
                 
                 <img id='mainImage' width="500" height="600">
-                <p id="description">
-                    description!
-                </p>
+                <div id='postContent'>
+                    <p id='price'>
+                        price!
+                    </p>
+                    <p id="description">
+                        description!
+                    </p>
+                    <p id="category">
+                        category!
+                    </p>
+                    <p id="date">
+                        posted on: 
+                    </p>
+                </div>
+                <div id=userInfo onclick="userInfoClicked()" >
+                    Click here to view the seller's contact information
+                </div>
             </div>
         </div>
 
@@ -72,65 +86,71 @@
             var db = firebase.firestore();
             var storage = firebase.storage();
         </script>
-        
-
-        <script> 
-            //read images from Firebase Storage
-            //for loop iterating through all imagesURLs from the postID
-            var imageURL = 'gs://uscmarketplace.appspot.com/post_images/postID/chair.webp';
-            var imageRef = storage.refFromURL(imageURL);
-
-            // Get the download URL
-            imageRef.getDownloadURL()
-            .then((url) => {
-                document.getElementById('mainImage').setAttribute('src', url);
-                document.getElementById('page').hidden = false;
-            // Insert url into an <img> tag to "download"
-            })
-            .catch((error) => {
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
-            switch (error.code) {
-                case 'storage/object-not-found':
-                    console.log('file doesnt exist');
-                // File doesn't exist
-                break;
-                case 'storage/unauthorized':
-                    console.log('User doesnt have permission to access the object');
-                // User doesn't have permission to access the object
-                break;
-                case 'storage/canceled':
-                    console.log('User canceled the upload');
-                // User canceled the upload
-                break;
-
-                case 'storage/unknown':
-                    console.log('nknown error occurred, inspect the server response');
-                // Unknown error occurred, inspect the server response
-                break;
-            }
-            });
-        </script>
 
         <script>
             //read in the post document
-            var postID = "TwRXimVCDgRhFc7J4DdI";
+            localStorage.setItem("postid", "T0kzCJqJfpknsb2Psj2J");
+            var postID = localStorage.getItem("postID");
             var docRef = db.collection("posts").doc(postID);
+            var post = {};
 
             docRef.get().then((doc) => {
                 if (doc.exists) {
-                    var post = {
+                    post = {
                         name: doc.data()['category'],
                         date: doc.data()['date'],
                         description: doc.data()['description'],
                         price: doc.data()['price'],
                         title: doc.data()['title'],
                         userID: doc.data()['userid'],
+                        imageURL: doc.data()['image'],
+                        category: doc.data()['category']
                     }
                     console.log(post);
                     
                     //set HTML fields to proper data
-                    document.getElementById('description').innerHTML = post.description;
+                    document.getElementById('description').innerHTML = "Description: " + post.description;
+                    document.getElementById('title').innerHTML = post.title;
+                    document.getElementById('price').innerHTML = "Price: " + post.price;
+                    document.getElementById('category').innerHTML = "Category: " + post.category;
+                    var formattedDate = post.date.toDate();
+                    document.getElementById('date').innerHTML = "Posted on: " + formattedDate;
+
+                    //read images from Firebase Storage
+                    //for loop iterating through all imagesURLs from the postID
+                    console.log(post.imageURL);
+                    var imageRef = storage.ref(post.imageURL);
+
+                    // Get the download URL
+                    imageRef.getDownloadURL()
+                    .then((url) => {
+                        document.getElementById('mainImage').setAttribute('src', url);
+                        document.getElementById('page').hidden = false;
+                    // Insert url into an <img> tag to "download"
+                    })
+                    .catch((error) => {
+                    // A full list of error codes is available at
+                    // https://firebase.google.com/docs/storage/web/handle-errors
+                    switch (error.code) {
+                        case 'storage/object-not-found':
+                            console.log('file doesnt exist');
+                        // File doesn't exist
+                        break;
+                        case 'storage/unauthorized':
+                            console.log('User doesnt have permission to access the object');
+                        // User doesn't have permission to access the object
+                        break;
+                        case 'storage/canceled':
+                            console.log('User canceled the upload');
+                        // User canceled the upload
+                        break;
+
+                        case 'storage/unknown':
+                            console.log('nknown error occurred, inspect the server response');
+                        // Unknown error occurred, inspect the server response
+                        break;
+                    }
+                    });
                     
                 } else {
                     // doc.data() will be undefined in this case
@@ -149,9 +169,12 @@
             function toggleLikeButton() {
                 
             }
-        </script>
 
-        <script>
+            function userInfoClicked() {
+                localStorage.setItem("userid", doc.userID);
+                window.lcation.href = 'profilepage.html';
+            }
+
             function backButtonPressed() {
                 //go back to previous page
                 //<a href=''>
