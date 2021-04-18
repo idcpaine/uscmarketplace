@@ -1,18 +1,14 @@
-/* START GENERAL STYLING */
+/* START GENERAL STYLING FOR ALL PAGES */
+/* START STYLING FOR TOP BAR */
 h1 {
-  margin: auto;
-  color: #9D2235;
-  font-size: 3vw;
-}
-
-p {
-  text-align: right;
+    margin: auto;
+    color: #9D2235;
+    font-size: 3vw;
 }
 
 html {
     font-family: "Montserrat";
 }
-/* END GENERAL STYLING */
 
 
 /* START SIDEPANEL STYLING */
@@ -29,8 +25,7 @@ html {
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
   }
   
-  /* The sidepanel links */
-  .sidepanel a {
+  .sidepanel a { /* style the links */
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
@@ -39,13 +34,11 @@ html {
     transition: 0.3s;
   }
   
-  /* When you mouse over the navigation links, change their color */
-  .sidepanel a:hover {
+  .sidepanel a:hover { /* links turn white when you hover */
     color: #f1f1f1;
   }
   
-  /* Position and style the close button (top right corner) */
-  .sidepanel .closebtn {
+  .sidepanel .closebtn { /* styling the X close button */
     position: absolute;
     top: 0;
     right: 25px;
@@ -53,8 +46,7 @@ html {
     margin-left: 50px;
   }
   
-  /* Style the button that is used to open the sidepanel */
-  .openbtn {
+  .openbtn { /* styling the open button */
     font-size: 20px;
     cursor: pointer;
     background-color: #FFC72C;
@@ -64,7 +56,7 @@ html {
     font-family: "Montserrat";
   }
   
-  .openbtn:hover {
+  .openbtn:hover { /* open button darkens when you hover */
     background-color: #c4991f;
   }
 /* END SIDEPANEL STYLING */
@@ -109,9 +101,6 @@ html {
   margin-left: 50px;
 }
 /* END DROPDOWN STYLING */
-
-
-
 
 
 /* START CARD STYLING */
@@ -187,3 +176,4 @@ h4 {
   padding: 8px;
 }
 /* END ROWS AND COLUMNS STYLING */
+/* END GENERAL STYLING FOR ALL PAGES */
