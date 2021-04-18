@@ -186,7 +186,8 @@
         //get file
         file = e.target.files[0];
         firebase.storage().ref(file.name);
-        const fileRef = storageRef.child('post_images/'+userid+'/'+file.name);
+        // const fileRef = storageRef.child('post_images/'+userid+'/'+file.name);
+        const fileRef = storageRef.child(file.name);
         fileRef.put(file).then(() => {
             console.log("Uploaded file", file.name);
         });
