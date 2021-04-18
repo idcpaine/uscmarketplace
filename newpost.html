@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="newpost.css">
     <link rel="stylesheet"  href="general.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <script src="newpost.js"></script>
 </head>
 <body>
 
@@ -87,12 +86,21 @@
                 <input type="text" class="form-control" id="description" name="description">
               </div>
               <div class="dropdownNP">
-                <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-                <div id="myDropdown" class="dropdownNP-content">
+                <!-- <button onclick="myFunction()" class="dropbtn">Dropdown</button> -->
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" size="1">
+                        <option value="null"></option>
+                        <option value="Textbooks">Textbooks</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Subleasing">Subleasing</option>
+                    </select><br><br>
+                </div>
+                <!-- <div id="myDropdown" class="dropdownNP-content">
                   <a href="#">Textbooks</a>
                   <a href="#">Furniture</a>
                   <a href="#">Subleasing</a>
-                </div>
+                </div> -->
               </div>
               <button id="submit" type="submit" class="btn btn-outline-info"> Submit </button>
 
@@ -175,8 +183,8 @@
                 // picture: 
                 description: postForm['description'].value,
                 user: user.uid,
-                date: new Date()
-                // category: 
+                date: new Date(),
+                category: postForm['category'].value
             })
         })
 
