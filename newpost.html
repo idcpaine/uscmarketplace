@@ -1,17 +1,21 @@
+
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="newpost.css">
+    <script src="newpost.js"></script>
 </head>
 <body>
     <!-- <form> -->
         <p id='status'>Not Logged In</p>
         <form id="postform" class="form">
             <div class="form-group">
-                <form action="/action_page.php">
+                <label>Image</label>
+                <!-- <div action="/action_page.php">
                     <input type="file" id="myFile" name="filename">
-                    
-                </form>
+                </div> -->
+                <input id = "file" type = "file" onChange="onFileChange(this)" >
             </div>
             <div class="form-group">
               <label>Title</label>
@@ -38,7 +42,7 @@
         </form>
     <!-- </form> -->
 
-
+    
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 
@@ -65,7 +69,25 @@
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
         var db = firebase.firestore();
+        var storage = firebase.storage()
+        let storageRef = storage.ref()
 
+    
+    
+
+    // const onFileChange = (e) =>{
+    //     console.log("entered onFileChange()");
+    //     console.log(e.files[0]);
+    //     const file = e.target.files[0]
+    //     const storageRef = firestore.storage.ref()
+    //     const fileRef = storageRef.child(file)
+    //     // const reader = new FileReader();
+    //     // reader.onload = handleFileLoad;
+    //     // const file = reader.readAsText(e.files[0])
+    //     fileRef.put(file).then(() => {
+    //         console.log("Uploaded file", file)
+    //     })
+    // }
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             // User is signed in.
@@ -78,10 +100,10 @@
             document.getElementById("status").innerHTML = "Not Logged In";
             // ...
         }
+
+
+
         const postForm = document.querySelector('#postform');
-                //saving data
-        console.log("postform: "+postForm.value);
-        
         postForm.addEventListener('submit', (e) => {
             console.log("entered submit post");
             //prevents the entire page from being refreshed
@@ -91,10 +113,13 @@
                 price: postForm['price'].value,
                 // picture: 
                 description: postForm['description'].value,
-                // user: user.uid,
+                user: user.uid,
+                date: new Date()
                 // category: 
             })
         })
+
+
     });
         </script>
         </body>
