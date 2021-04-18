@@ -1,12 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet"  href="dashboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
-<div>
-  <label>Username</label>
+<!-- SIDEBAR HTML -->
+<div id="mySidepanel" class="sidepanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Textbooks</a>
+    <a href="thread.html">Furniture</a>
+    <a href="#">Study Materials</a>
+    <a href="#">Subleasing</a>
+    <a href="#">Tickets</a>
+    <a href="#">Electronics</a>
+    <a href="#">Sporting Goods</a>
+    <a href="#">Clothing & Accessories</a>
+    <a href="#">Food & Dining Hall Swipes</a>
+  </div>
+<!-- END SIDEBAR HTML-->
+
+<!-- START DROPDOWN -->
+<div id="myDropdown" class="dropdown">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeDropdown()">&times;</a>
+  <a href="accountpage.html">My Account</a>
+  <a onclick="firebase.auth().signOut()">Log Out</a>
 </div>
+<!-- END DROPDOWN -->
+
+
+<!-- <button type="button" onclick="firebase.auth().signOut()" class="button"><span>Log Out</span> </button> -->
+
+<!-- top row -->
+<div class = "topRow">
+  <div class = "topColumn">
+    <button class="openbtn" onclick="openNav()">&#9776; Browse by Category</button>
+  </div>
+  <div class = "topColumn">
+    <a href = "dashboard.html" class = "uscLink">USC MARKETPLACE</a>
+  </div>
+  <div class = "topColumn">
+    <div class = "topRightRow">
+      <div class = "topRightColumn">
+        <img class = "yellow" onclick = "openDropdown()" src = "resources/profile.png" width = 30% />
+      </div>
+      <div class = "topRightColumn">
+          <a href = newpost.html><img class = "yellow" src = "resources/plus.png" width = 30% /></a>
+      </div>
+      <div class = "topRightColumn">
+        <img class = "yellow" src = "resources/search.png" width = 30% />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end top row -->
+
+<!-- horizontal lines -->
+<hr style="height:4px;border-width:0;color:#9D2235;background-color:#9D2235">
+<hr style="height:4px;border-width:0;color:#FFC72C;background-color:#FFC72C">
+
+<p id='status'>Not Logged In</p>
+
+
+
+
+
+<!-- horizontal lines -->
+<hr style="height:4px;border-width:0;color:#9D2235;background-color:#9D2235">
+<hr style="height:4px;border-width:0;color:#FFC72C;background-color:#FFC72C">
+
+
+<!-- firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-storage.js"></script>
+ 
+  
+<script>
+    var firebaseConfig = {
+        // I inserted the API keys here from the firebase website
+        apiKey: "AIzaSyDggC7QCB9qvUa9sT9DgWn50djUDzR3_T0",
+        authDomain: "uscmarketplace.firebaseapp.com",
+        projectId: "uscmarketplace",
+        storageBucket: "uscmarketplace.appspot.com",
+        messagingSenderId: "432656718742",
+        appId: "1:432656718742:web:9f34948f88a687987d9bb7",
+        measurementId: "G-LSPEZ0QTC0"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    var db = firebase.firestore();
+firebase.auth().onAuthStateChanged(function(user) {
+    if(user){
+        console.log("user logged in");
+        document.getElementById("status").innerHTML = "You are signed in under the email: " + user.email;
+    }
+    else {
+        console.log("user not logged in");
+        // User is signed out.
+        document.getElementById("status").innerHTML = "Not Logged In";
+        //redirect to login sign up page if not logged in
+        window.location = '../uscmarketplace/login_page.html';
+    }
+});
+
+
+// SIDEBAR JAVASCRIPT
+    /* Set the width of the sidebar to 250px (show it) */
+    function openNav() {
+      document.getElementById("mySidepanel").style.width = "270px";
+    }
+
+    /* Set the width of the sidebar to 0 (hide it) */
+    function closeNav() {
+      document.getElementById("mySidepanel").style.width = "0";
+    }
+
+// DROPDOWN JAVASCRIPT
+    /* Set the width of the sidebar to 250px (show it) */
+    function openDropdown() {
+      document.getElementById("myDropdown").style.height = "100px";
+    }
+
+    /* Set the width of the sidebar to 0 (hide it) */
+    function closeDropdown() {
+      document.getElementById("myDropdown").style.height = "0";
+    }
+  
+</script>
 </body>
 </html>
