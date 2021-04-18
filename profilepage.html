@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet"  href="thread.css">
-    <link rel="stylesheet"  href="general.css">
+    <link rel="stylesheet"  href="dashboard.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -63,8 +62,10 @@
 <hr style="height:4px;border-width:0;color:#9D2235;background-color:#9D2235">
 <hr style="height:4px;border-width:0;color:#FFC72C;background-color:#FFC72C">
 
-<p style="text-align: right" id='status'>Not Logged In</p>
-<h2><b>BROWSE FURNITURE</b></h2>
+<p id='status'>Not Logged In</p>
+
+
+
 
 
 
@@ -75,8 +76,7 @@
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-storage.js"></script>
- 
-<div class="card-container" id="results" style="margin-top: 1rem;"></div>
+<div class="card-group" id="results" style="margin-top: 1rem;"></div>
   
 <script>
     var firebaseConfig = {
@@ -94,14 +94,42 @@
     firebase.analytics();
     var db = firebase.firestore();
     let res = document.getElementById("results");
-    var storage = firebase.storage();
-    let storageRef = storage.ref();
+    res.innerHTML = '';
+    var userid = localStorage.getItem("userid");
+    userid = "oJ6NIiWHQ8aCsfE1zUlgiaDbpDF3";
+    // userid = "gJgXIXmySxUR9ctntyxGUdWHCun1";
 
-
-
-var userid;
+    var userName = db.collection("users").doc(userid);
+    userName.get().then((doc) => {
+      if (doc.exists) {
+            res.innerHTML+= `
+              <h1>${doc.data().first_name}</h1>
+              <h1>${doc.data().last_name}</h1>
+              <h1>${doc.data().status}</h1>
+              <h1>${doc.data().phone_number}</h1>
+                `
+        } else {
+        // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+        }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+    // db.collection("users").where("phone_number", "==", "3106592198")
+    // db.collection()
+      // .get()
+  //       .then((querySnapshot) => {
+  //           querySnapshot.forEach((doc) => {
+  //             console.log("enteredddddd");
+  //             res.innerHTML+= `
+  //             <h1>${doc.data().first_name}</h1>
+  //             <h1>${doc.data().last_name}</h1>
+  //             <h1>${doc.data().status}</h1>
+  //             <h1>${doc.data().phone_number}</h1>
+  //             `
+  //   })
+  // });
 firebase.auth().onAuthStateChanged(function(user) {
-    userid = user.uid;
     if(user){
         console.log("user logged in");
         document.getElementById("status").innerHTML = "You are signed in under the email: " + user.email;
@@ -114,42 +142,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         window.location = '../uscmarketplace/login_page.html';
     }
 });
-
-res.innerHTML = '';
-    db.collection("posts").where("category", "==", "Furniture")
-        .get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              console.log("enteredddddd");
-              console.log(doc.data().title);
-              console.log(doc.data().image);
-              // var starsRef = storageRef.child('post_images/'+doc.data().user+'/'+doc.data().image);
-              storageRef.child(`${doc.data().image}`).getDownloadURL().then((url) => {
-              res.innerHTML+= `
-              <div class = "card" style="min-width: 15rem; max-width: 18rem; margin: 1rem; padding: 1rem;">
-                <img src = "${url}" alt="image" width=300px style="text-align:center;">
-                        <div style='position: relative;'>
-                          <h5 style="text-align:center;">${doc.data().title}</h5>
-                          <p style="text-align:center;">${doc.data().price}</p>
-                      </div>
-                     </div>
-                `
-
-              })
-              // <h2> ${doc.data().date.toDate()} </h2>
-              // <div class="card">
-              //           <img src = "${url}" alt="image" width=50%>
-              //               <div class="container">
-              //                   <h2> ${doc.data().title} </h2>
-              //                   <h3> ${doc.data().price} </h3>
-              //               </div>
-              //       </div>
-
-//style="min-width: 15rem; max-width: 18rem; margin: 1rem; padding: 1rem;"
-             
-            });
-        })
-
 
 
 // SIDEBAR JAVASCRIPT
@@ -173,11 +165,22 @@ res.innerHTML = '';
     function closeDropdown() {
       document.getElementById("myDropdown").style.height = "0";
     }
-  
+
+    //Where the profile info is
+    // var email = "nnsadegh@usc.edu";
+    // var first = "Netanel";
+    // var last = "Sadeghi";
+    // var phone = "3104039407";
+    // var year = "Sophomore";
+    // <div className="profile">
+
+    // </div>
+
 </script>
 
-        <!-- horizontal lines -->
-        <hr style="height:4px;border-width:0;color:#9D2235;background-color:#9D2235">
-        <hr style="height:4px;border-width:0;color:#FFC72C;background-color:#FFC72C">
+
+<!-- horizontal lines -->
+<hr style="height:4px;border-width:0;color:#9D2235;background-color:#9D2235">
+<hr style="height:4px;border-width:0;color:#FFC72C;background-color:#FFC72C">
 </body>
 </html>

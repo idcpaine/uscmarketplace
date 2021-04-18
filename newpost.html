@@ -13,7 +13,7 @@
 <div id="mySidepanel" class="sidepanel">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="#">Textbooks</a>
-    <a href="#">Furniture</a>
+    <a href="thread.html">Furniture</a>
     <a href="#">Study Materials</a>
     <a href="#">Subleasing</a>
     <a href="#">Tickets</a>
@@ -94,7 +94,16 @@
                 <label id="file_label">File Upload: </label>
                 <input id = "file" type = "file" value = "upload">
             </div><br><br>
-              <button id="submit" type="submit" class="btn btn-outline-info"> Submit </button>
+            <div class="main">
+                <button class="button" id="submit" type="submit"> Save </button>
+                <div class="loader">
+                    <div class="check">
+                        <span class="check-one"></span>
+                        <span class="check-two"></span>
+                    </div>
+                </div>
+
+            </div>
         </form>
     </div>
     <!-- </form> -->
@@ -176,6 +185,12 @@
                 category: postForm['category'].value,
                 image: file.name
             })
+            //clears text fields when submitted
+            postForm['title'].value = '';
+            postForm['price'].value = '';
+            postForm['description'].value = '';
+
+
         })
 
 
@@ -218,7 +233,20 @@
     function closeDropdown() {
       document.getElementById("myDropdown").style.height = "0";
     }
+    /*Submit button animation*/
+    document.addEventListener('DOMContentLoaded', function () {
+        var btn = document.querySelector('.button'),
+            loader = document.querySelector('.loader'),
+            check = document.querySelector('.check');
 
+        btn.addEventListener('click', function () {
+            loader.classList.add('active');
+        });
+
+        loader.addEventListener('animationend', function() {
+            check.classList.add('active');
+        });
+    });
 
         </script>
         </body>
