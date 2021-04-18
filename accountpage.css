@@ -1,1 +1,18 @@
 /*CSS file for account page*/
+html {
+    background-color: #9D2235;
+    font-family: "Montserrat";
+}
+
+body {
+    height: 100vh;
+}
+
+button[type=button], button[type=submit], input[type=reset]  {
+    background-color: #9d2235;
+}
+
+.form-group{
+    align-content: center;
+    font-weight: bold;
+}
