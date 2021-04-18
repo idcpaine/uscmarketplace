@@ -79,6 +79,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-storage.js"></script>
  
+<div class="card-group" id="results" style="margin-top: 1rem;"></div>
   
 <script>
     var firebaseConfig = {
@@ -95,7 +96,15 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
     var db = firebase.firestore();
+    let res = document.getElementById("results");
+    var storage = firebase.storage();
+    let storageRef = storage.ref();
+
+
+
+var userid;
 firebase.auth().onAuthStateChanged(function(user) {
+    userid = user.uid;
     if(user){
         console.log("user logged in");
         document.getElementById("status").innerHTML = "You are signed in under the email: " + user.email;
@@ -109,6 +118,29 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
+res.innerHTML = '';
+    db.collection("posts").where("category", "==", "Furniture")
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              console.log("enteredddddd");
+              console.log(doc.data().title);
+              console.log(doc.data().image);
+              // var starsRef = storageRef.child('post_images/'+doc.data().user+'/'+doc.data().image);
+              storageRef.child(`${doc.data().image}`).getDownloadURL().then((url) => {
+              res.innerHTML+= `
+
+                    <img src = "${url}" alt="image" width=50%>
+                    <h3> ${doc.data().title} </h3>
+                    <h2> ${doc.data().price} </h2>
+                    
+
+                    `
+
+              })
+              // <h2> ${doc.data().date.toDate()} </h2>
+            });
+        })
 
 // SIDEBAR JAVASCRIPT
     /* Set the width of the sidebar to 250px (show it) */
