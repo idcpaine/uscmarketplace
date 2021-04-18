@@ -129,12 +129,13 @@ res.innerHTML = '';
               // var starsRef = storageRef.child('post_images/'+doc.data().user+'/'+doc.data().image);
               storageRef.child(`${doc.data().image}`).getDownloadURL().then((url) => {
               res.innerHTML+= `
-
-                    <img src = "${url}" alt="image" width=50%>
-                    <h3> ${doc.data().title} </h3>
-                    <h2> ${doc.data().price} </h2>
-                    
-
+                    <div class="card">
+                        <img src = "${url}" alt="image" width=50%>
+                            <div class="container">
+                                <h2> ${doc.data().title} </h2>
+                                <h3> ${doc.data().price} </h3>
+                            </div>
+                    </div>
                     `
 
               })
