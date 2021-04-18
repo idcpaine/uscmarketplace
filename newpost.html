@@ -4,9 +4,66 @@
 
 <head>
     <link rel="stylesheet" href="newpost.css">
+    <link rel="stylesheet"  href="general.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <script src="newpost.js"></script>
 </head>
 <body>
+
+<!-- SIDEBAR HTML -->
+<div id="mySidepanel" class="sidepanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Textbooks</a>
+    <a href="#">Furniture</a>
+    <a href="#">Study Materials</a>
+    <a href="#">Subleasing</a>
+    <a href="#">Tickets</a>
+    <a href="#">Electronics</a>
+    <a href="#">Sporting Goods</a>
+    <a href="#">Clothing & Accessories</a>
+    <a href="#">Food & Dining Hall Swipes</a>
+  </div>
+<!-- END SIDEBAR HTML-->
+
+<!-- START DROPDOWN -->
+<div id="myDropdown" class="dropdown">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeDropdown()">&times;</a>
+  <a href="accountpage.html">My Account</a>
+  <a onclick="firebase.auth().signOut()">Log Out</a>
+</div>
+<!-- END DROPDOWN -->
+
+
+<!-- top row -->
+<div class = "topRow">
+    <div class = "topColumn">
+      <button class="openbtn" onclick="openNav()">&#9776; Browse by Category</button>
+    </div>
+    <div class = "topColumn">
+      <a href = "dashboard.html" class = "uscLink">USC MARKETPLACE</a>
+    </div>
+    <div class = "topColumn">
+      <div class = "topRightRow">
+        <div class = "topRightColumn">
+          <img class = "yellow" onclick = "openDropdown()" src = "resources/profile.png" width = 30% />
+        </div>
+        <div class = "topRightColumn">
+            <a href = newpost.html><img class = "yellow" src = "resources/plus.png" width = 30% /></a>
+        </div>
+        <div class = "topRightColumn">
+          <img class = "yellow" src = "resources/search.png" width = 30% />
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- end top row -->
+  
+  <!-- horizontal lines -->
+  <hr style="height:4px;border-width:0;color:#9D2235;background-color:#9D2235">
+  <hr style="height:4px;border-width:0;color:#FFC72C;background-color:#FFC72C">
+
+
     <!-- <form> -->
         <p id='status'>Not Logged In</p>
         <form id="postform" class="form">
@@ -29,9 +86,9 @@
                 <label>Description</label>
                 <input type="text" class="form-control" id="description" name="description">
               </div>
-              <div class="dropdown">
+              <div class="dropdownNP">
                 <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-                <div id="myDropdown" class="dropdown-content">
+                <div id="myDropdown" class="dropdownNP-content">
                   <a href="#">Textbooks</a>
                   <a href="#">Furniture</a>
                   <a href="#">Subleasing</a>
@@ -41,6 +98,10 @@
 
         </form>
     <!-- </form> -->
+
+<!-- horizontal lines -->
+<hr style="height:4px;border-width:0;color:#9D2235;background-color:#9D2235">
+<hr style="height:4px;border-width:0;color:#FFC72C;background-color:#FFC72C">
 
     
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -121,6 +182,31 @@
 
 
     });
+
+
+    // SIDEBAR JAVASCRIPT
+    /* Set the width of the sidebar to 250px (show it) */
+    function openNav() {
+      document.getElementById("mySidepanel").style.width = "270px";
+    }
+
+    /* Set the width of the sidebar to 0 (hide it) */
+    function closeNav() {
+      document.getElementById("mySidepanel").style.width = "0";
+    }
+
+// DROPDOWN JAVASCRIPT
+    /* Set the width of the sidebar to 250px (show it) */
+    function openDropdown() {
+      document.getElementById("myDropdown").style.height = "100px";
+    }
+
+    /* Set the width of the sidebar to 0 (hide it) */
+    function closeDropdown() {
+      document.getElementById("myDropdown").style.height = "0";
+    }
+
+    
         </script>
         </body>
 </html>
