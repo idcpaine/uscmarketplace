@@ -96,3 +96,110 @@ input[type=text], input[type=tel], select {
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdownNP:hover .dropbtn {background-color: #3e8e41;}
+
+
+* {
+  box-sizing: border-box;
+}
+
+.main {
+  background-color: rgba(38, 38, 38, 0);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 36px;
+  border-radius: 18px;
+  background-color: #9D2235;
+  border: solid 1px transparent;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.button:hover {
+  background-color: transparent;
+  border-color: #000000;
+  transition: all 0.1s ease-in-out;
+  color: #000000;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  margin: 30px auto 0 auto;
+  border: solid 3px #424242;
+  border-top: solid 3px #9D2235;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.check {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translate3d(-4px, 50px, 0);
+  opacity: 0;
+}
+
+.check span:nth-child(1) {
+  display: block;
+  width: 10px;
+  height: 2px;
+  background-color: #000000;
+  transform: rotate(45deg);
+}
+
+.check span:nth-child(2) {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: #000000;
+  transform: rotate(-45deg) translate3d(14px, -4px, 0);
+  transform-origin: 100%;
+}
+
+.loader.active {
+  animation: loading 3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.check.active {
+  opacity: 1;
+  transform: translate3d(-4px, 4px, 0);
+  transition: all 0.5s cubic-bezier(0.49, 1.74, 0.38, 1.74);
+  transition-delay: 0.2s;
+}
+
+@keyframes loading {
+  30% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+    transform: rotate(1080deg);
+    border-color: #262626;
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(1080deg);
+    border-color: #9D2235;
+  }
+}
