@@ -126,11 +126,11 @@ res.innerHTML = '';
               // var starsRef = storageRef.child('post_images/'+doc.data().user+'/'+doc.data().image);
               storageRef.child(`${doc.data().image}`).getDownloadURL().then((url) => {
               res.innerHTML+= `
-              <div class = "card" style="min-width: 15rem; max-width: 18rem; margin: 1rem; padding: 1rem;">
+             <div class = "card" style="min-width: 15rem; max-width: 18rem; margin: 1rem; padding: 1rem;">
                 <img src = "${url}" alt="image" width=300px style="text-align:center;">
                         <div style='position: relative;'>
-                          <h5 style="text-align:center;">${doc.data().title}</h5>
-                          <p style="text-align:center;">${doc.data().price}</p>
+                          <h5 style="text-align:center; text-decoration: none;">${doc.data().title}</h5>
+                          <p style="text-align:center; text-decoration: none;">${doc.data().price}</p>
                       </div>
                      </div>
                 `
