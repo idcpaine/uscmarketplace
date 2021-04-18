@@ -1,8 +1,9 @@
 /* START GENERAL STYLING */
-h1 {
+.uscLink {
   margin: auto;
   color: #9D2235;
   font-size: 3vw;
+  text-decoration: none;
 }
 
 p {
