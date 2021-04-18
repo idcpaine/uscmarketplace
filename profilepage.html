@@ -76,7 +76,7 @@
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-storage.js"></script>
- 
+<div class="card-group" id="results" style="margin-top: 1rem;"></div>
   
 <script>
     var firebaseConfig = {
@@ -93,6 +93,42 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
     var db = firebase.firestore();
+    let res = document.getElementById("results");
+    res.innerHTML = '';
+    var userid = localStorage.getItem("userid");
+    userid = "oJ6NIiWHQ8aCsfE1zUlgiaDbpDF3";
+    // userid = "gJgXIXmySxUR9ctntyxGUdWHCun1";
+
+    var userName = db.collection("users").doc(userid);
+    userName.get().then((doc) => {
+      if (doc.exists) {
+            res.innerHTML+= `
+              <h1>${doc.data().first_name}</h1>
+              <h1>${doc.data().last_name}</h1>
+              <h1>${doc.data().status}</h1>
+              <h1>${doc.data().phone_number}</h1>
+                `
+        } else {
+        // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+        }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+    // db.collection("users").where("phone_number", "==", "3106592198")
+    // db.collection()
+      // .get()
+  //       .then((querySnapshot) => {
+  //           querySnapshot.forEach((doc) => {
+  //             console.log("enteredddddd");
+  //             res.innerHTML+= `
+  //             <h1>${doc.data().first_name}</h1>
+  //             <h1>${doc.data().last_name}</h1>
+  //             <h1>${doc.data().status}</h1>
+  //             <h1>${doc.data().phone_number}</h1>
+  //             `
+  //   })
+  // });
 firebase.auth().onAuthStateChanged(function(user) {
     if(user){
         console.log("user logged in");
@@ -131,14 +167,14 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 
     //Where the profile info is
-    var email = "nnsadegh@usc.edu";
-    var first = "Netanel";
-    var last = "Sadeghi";
-    var phone = "3104039407";
-    var year = "Sophomore";
-    <div className="profile">
+    // var email = "nnsadegh@usc.edu";
+    // var first = "Netanel";
+    // var last = "Sadeghi";
+    // var phone = "3104039407";
+    // var year = "Sophomore";
+    // <div className="profile">
 
-    </div>
+    // </div>
 
 </script>
 
