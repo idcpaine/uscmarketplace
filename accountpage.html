@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <form>
-        <form id="myForm" class="form">
-            <div class="form-group">
-              <label>Phone Number</label>
-              <input type="text" class="form-control" id="number" name="number">
-            </div>
-        </form>
+    <title>Account Page</title>
+    <p id='status'>Not Logged In</p>
+    <form id="myForm" class="form">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" class="form-control" id="first_name" name="first_name">
+        </div>
+        <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name">
+        </div>
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" class="form-control" id="number" name="number" placeholder="(XXX)-XXX-XXXX">
+        </div>
+        <div class="form-group">
+            <label for="year">Status:</label>
+            <select id="year" name="year" size="1">
+                <option value="null"></option>
+                <option value="freshman">Freshman</option>
+                <option value="sophomore">Sophomore</option>
+                <option value="junior">Junior</option>
+                <option value="senior">Senior</option>
+                <option value="graduate">Graduate</option>
+                <option value="alumni">Alumni</option>
+            </select><br><br>
+        </div>
+        <button id="submit" type="submit"> Submit </button>
     </form>
 </head>
 
@@ -38,24 +59,34 @@
         firebase.analytics();
         var db = firebase.firestore();
 
-        const signupForm = document.querySelector('#myForm');
-        signupForm.addEventListener('submit', (e) =>{
-            e.preventDefault();
-            const inpemail = signupForm['email'].value;
-            const inppass = signupForm['password'].value;
-            firebase.auth().createUserWithEmailAndPassword(inpemail, inppass).then( cred =>{
-                console.log("entered");
-                return db.collection('users').doc(cred.user.uid).set({ //cred.user.uid gets the user id
-                  
-                  name: signupForm['number'].value
-                });
-                
-                
-                // console.log(name);
-                // console.log(cred.user.uid);
+        const accountForm = document.querySelector('#myForm');
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in.
+                document.getElementById("status").innerHTML = "Signed in as " + user.email;
+                // window.location = '/homepage.html';
 
+                // ...
+            } else {
+                // User is signed out.
+                document.getElementById("status").innerHTML = "Not Logged In";
+                // ...
+            }
+            const accountForm = document.querySelector('#myForm');
+            //saving data
+
+            accountForm.addEventListener('submit', (e) => {
+                console.log("entered user info");
+                //prevents the entire page from being refreshed
+                e.preventDefault();
+                db.collection('users').doc(user.uid).set({
+                    first_name: accountForm['first_name'].value,
+                    last_name: accountForm['last_name'].value,
+                    phone_number: accountForm['number'].value,
+                    status: accountForm['year'].value,
+                    date: new Date()
+                })
             })
-
-        }) 
+        });
         </script>
 </html>
