@@ -2,9 +2,69 @@
 <html>
 <head>
     <link rel="stylesheet" href="accountpage.css">
+    <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <title>Account Page</title>
-    <p id='status'>Not Logged In</p>
+</head>
+
+<body>
+    <!-- SIDEBAR HTML -->
+    <div id="mySidepanel" class="sidepanel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Textbooks</a>
+        <a href="#">Furniture</a>
+        <a href="#">Study Materials</a>
+        <a href="#">Subleasing</a>
+        <a href="#">Tickets</a>
+        <a href="#">Electronics</a>
+        <a href="#">Sporting Goods</a>
+        <a href="#">Clothing & Accessories</a>
+        <a href="#">Food & Dining Hall Swipes</a>
+      </div>
+    <!-- END SIDEBAR HTML-->
+    
+    <!-- START DROPDOWN -->
+    <div id="myDropdown" class="dropdown">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeDropdown()">&times;</a>
+      <a href="#">My Account</a>
+      <a onclick="firebase.auth().signOut()">Log Out</a>
+    </div>
+    <!-- END DROPDOWN -->
+
+
+    <!-- top row -->
+<div class = "topRow">
+    <div class = "topColumn">
+      <button class="openbtn" onclick="openNav()">&#9776; Browse by Category</button>
+    </div>
+    <div class = "topColumn">
+      <h1>USC MARKETPLACE</h1>
+    </div>
+    <div class = "topColumn">
+      <div class = "topRightRow">
+        <div class = "topRightColumn">
+          <img class = "yellow" onclick = "openDropdown()" src = "resources/profile.png" width = 30% />
+        </div>
+        <div class = "topRightColumn">
+            <img class = "yellow" src = "resources/plus.png" width = 30% />
+        </div>
+        <div class = "topRightColumn">
+          <img class = "yellow" src = "resources/search.png" width = 30% />
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- end top row -->
+  
+  <!-- horizontal lines -->
+  <hr style="height:4px;border-width:0;color:#9D2235;background-color:#9D2235">
+  <hr style="height:4px;border-width:0;color:#FFC72C;background-color:#FFC72C">
+  
+
+
+<!-- FORM -->
+<p id='status'>Not Logged In</p>
     <form id="myForm" class="form">
         <div class="form-group">
           <label>First Name:</label>
@@ -32,7 +92,15 @@
         </div>
         <button id="submit" type="submit"> Submit </button>
     </form>
-</head>
+<!-- END FORM -->
+
+
+<!-- horizontal lines -->
+<hr style="height:4px;border-width:0;color:#9D2235;background-color:#9D2235">
+<hr style="height:4px;border-width:0;color:#FFC72C;background-color:#FFC72C">
+
+
+</body>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
@@ -90,5 +158,28 @@
                 })
             })
         });
+
+        // SIDEBAR JAVASCRIPT
+            /* Set the width of the sidebar to 250px (show it) */
+            function openNav() {
+            document.getElementById("mySidepanel").style.width = "270px";
+            }
+
+            /* Set the width of the sidebar to 0 (hide it) */
+            function closeNav() {
+            document.getElementById("mySidepanel").style.width = "0";
+            }
+
+        // DROPDOWN JAVASCRIPT
+            /* Set the width of the sidebar to 250px (show it) */
+            function openDropdown() {
+            document.getElementById("myDropdown").style.height = "100px";
+            }
+
+            /* Set the width of the sidebar to 0 (hide it) */
+            function closeDropdown() {
+            document.getElementById("myDropdown").style.height = "0";
+            }
+
         </script>
 </html>
