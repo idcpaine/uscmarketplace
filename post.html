@@ -6,16 +6,39 @@
 		<title>Lab 11</title>
 	</head>
 	<body>
-        <button id="backButton" class="button" onclick="backButtonPressed()">
-            Back
-        </button>
+        <div id="page" hidden="true">
+            <div class="post">
+                <div id="postHeader">
+                    <button id="backButton" class="button" onclick="backButtonPressed()">
+                        Back
+                    </button>
+                    <h1>vintage USC chair</h1>
 
-        <div class="post">
-            <h1>vintage USC chair</h1>
-            <img id='mainImage' width="500" height="600">
-            <p id="description">
-                description!
-            </p>
+                    <img src="resources/emtpyHeart.png" onclick="toggleLikeButton()">
+                    <img src="resources/emtpyFlag.png" onclick="toggleFlagButton()">
+                    
+                    <!-- Sharingbutton Facebook -->
+                    <a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                        <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>
+                        </div>
+                        </div>
+                    </a>
+
+                    <!-- Sharingbutton E-Mail -->
+                    <a class="resp-sharing-button__link" href="mailto:?subject=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;body=http%3A%2F%2Fsharingbuttons.io" target="_self" rel="noopener" aria-label="">
+                        <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.25 14.43l-3.5 2c-.08.05-.17.07-.25.07-.17 0-.34-.1-.43-.25-.14-.24-.06-.55.18-.68l3.5-2c.24-.14.55-.06.68.18.14.24.06.55-.18.68zm4.75.07c-.1 0-.2-.03-.27-.08l-8.5-5.5c-.23-.15-.3-.46-.15-.7.15-.22.46-.3.7-.14L12 13.4l8.23-5.32c.23-.15.54-.08.7.15.14.23.07.54-.16.7l-8.5 5.5c-.08.04-.17.07-.27.07zm8.93 1.75c-.1.16-.26.25-.43.25-.08 0-.17-.02-.25-.07l-3.5-2c-.24-.13-.32-.44-.18-.68s.44-.32.68-.18l3.5 2c.24.13.32.44.18.68z"/></svg>
+                        </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <img id='mainImage' width="500" height="600">
+                <p id="description">
+                    description!
+                </p>
+            </div>
         </div>
 
 
@@ -46,24 +69,22 @@
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
             firebase.analytics();
+            var db = firebase.firestore();
+            var storage = firebase.storage();
         </script>
         
 
         <script> 
             //read images from Firebase Storage
-            var storage = firebase.storage();
-
             //for loop iterating through all imagesURLs from the postID
             var imageURL = 'gs://uscmarketplace.appspot.com/post_images/postID/chair.webp';
             var imageRef = storage.refFromURL(imageURL);
-            document.getElementById('description').innerHTML = 'hi';
-            console.log('hi');
-
 
             // Get the download URL
             imageRef.getDownloadURL()
             .then((url) => {
                 document.getElementById('mainImage').setAttribute('src', url);
+                document.getElementById('page').hidden = false;
             // Insert url into an <img> tag to "download"
             })
             .catch((error) => {
@@ -75,7 +96,7 @@
                 // File doesn't exist
                 break;
                 case 'storage/unauthorized':
-                    console.log('User doesn't have permission to access the object');
+                    console.log('User doesnt have permission to access the object');
                 // User doesn't have permission to access the object
                 break;
                 case 'storage/canceled':
@@ -92,9 +113,48 @@
         </script>
 
         <script>
+            //read in the post document
+            var postID = "TwRXimVCDgRhFc7J4DdI";
+            var docRef = db.collection("posts").doc(postID);
+
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    var post = {
+                        name: doc.data()['category'],
+                        date: doc.data()['date'],
+                        description: doc.data()['description'],
+                        price: doc.data()['price'],
+                        title: doc.data()['title'],
+                        userID: doc.data()['userid'],
+                    }
+                    console.log(post);
+                    
+                    //set HTML fields to proper data
+                    document.getElementById('description').innerHTML = post.description;
+                    
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
+        </script>
+
+        <script>
+            function toggleFlagButton() {
+
+            }
+
+            function toggleLikeButton() {
+                
+            }
+        </script>
+
+        <script>
             function backButtonPressed() {
                 //go back to previous page
-                console.log('back button pressed');
+                //<a href=''>
             }
         </script>
 	</body>
