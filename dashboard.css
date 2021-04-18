@@ -112,14 +112,12 @@ html {
 /* END DROPDOWN STYLING */
 
 
-
-
-
 /* START CARD STYLING */
 h4 {
     color: #9D2235;
     font-size: 1vw;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .card {
