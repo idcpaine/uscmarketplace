@@ -1,17 +1,76 @@
+
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="newpost.css">
+    <link rel="stylesheet"  href="general.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 </head>
 <body>
+
+<!-- SIDEBAR HTML -->
+<div id="mySidepanel" class="sidepanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Textbooks</a>
+    <a href="#">Furniture</a>
+    <a href="#">Study Materials</a>
+    <a href="#">Subleasing</a>
+    <a href="#">Tickets</a>
+    <a href="#">Electronics</a>
+    <a href="#">Sporting Goods</a>
+    <a href="#">Clothing & Accessories</a>
+    <a href="#">Food & Dining Hall Swipes</a>
+  </div>
+<!-- END SIDEBAR HTML-->
+
+<!-- START DROPDOWN -->
+<div id="myDropdown" class="dropdown">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeDropdown()">&times;</a>
+  <a href="accountpage.html">My Account</a>
+  <a onclick="firebase.auth().signOut()">Log Out</a>
+</div>
+<!-- END DROPDOWN -->
+
+
+<!-- top row -->
+<div class = "topRow">
+    <div class = "topColumn">
+      <button class="openbtn" onclick="openNav()">&#9776; Browse by Category</button>
+    </div>
+    <div class = "topColumn">
+      <a href = "dashboard.html" class = "uscLink">USC MARKETPLACE</a>
+    </div>
+    <div class = "topColumn">
+      <div class = "topRightRow">
+        <div class = "topRightColumn">
+          <img class = "yellow" onclick = "openDropdown()" src = "resources/profile.png" width = 30% />
+        </div>
+        <div class = "topRightColumn">
+            <a href = newpost.html><img class = "yellow" src = "resources/plus.png" width = 30% /></a>
+        </div>
+        <div class = "topRightColumn">
+          <img class = "yellow" src = "resources/search.png" width = 30% />
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- end top row -->
+  
+  <!-- horizontal lines -->
+  <hr style="height:4px;border-width:0;color:#9D2235;background-color:#9D2235">
+  <hr style="height:4px;border-width:0;color:#FFC72C;background-color:#FFC72C">
+
+
     <!-- <form> -->
         <p id='status'>Not Logged In</p>
         <form id="postform" class="form">
             <div class="form-group">
-                <form action="/action_page.php">
-                    <input type="file" id="myFile" name="filename">
-                    
-                </form>
+                <label>Image</label>
+                <input id = "file" type = "file" value = "upload">
+
+
             </div>
             <div class="form-group">
               <label>Title</label>
@@ -25,12 +84,15 @@
                 <label>Description</label>
                 <input type="text" class="form-control" id="description" name="description">
               </div>
-              <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-                <div id="myDropdown" class="dropdown-content">
-                  <a href="#">Textbooks</a>
-                  <a href="#">Furniture</a>
-                  <a href="#">Subleasing</a>
+              <div class="dropdownNP">
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" size="1">
+                        <option value="null"></option>
+                        <option value="Textbooks">Textbooks</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Subleasing">Subleasing</option>
+                    </select><br><br>
                 </div>
               </div>
               <button id="submit" type="submit" class="btn btn-outline-info"> Submit </button>
@@ -38,7 +100,11 @@
         </form>
     <!-- </form> -->
 
+<!-- horizontal lines -->
+<hr style="height:4px;border-width:0;color:#9D2235;background-color:#9D2235">
+<hr style="height:4px;border-width:0;color:#FFC72C;background-color:#FFC72C">
 
+    
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 
@@ -65,9 +131,23 @@
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
         var db = firebase.firestore();
+        var storage = firebase.storage();
+        let storageRef = storage.ref();
 
 
+    // var fileButton = document.getElementById('file');
+    // var file;
+    // fileButton.addEventListener('change', function(e){
+    //     //get file
+    //     file = e.target.files[0];
+    //     firebase.storage().ref(file.name);
+    //     const fileRef = storageRef.child('post_images/'+user.uid+'/'+file.name);
+    //     fileRef.put(file).then(() => {
+    //         console.log("Uploaded file", file.name);
+    //     });
+    // });
 
+    var userid;
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             // User is signed in.
@@ -80,10 +160,10 @@
             document.getElementById("status").innerHTML = "Not Logged In";
             // ...
         }
+        userid = user.uid;
+
+
         const postForm = document.querySelector('#postform');
-                //saving data
-        console.log("postform: "+postForm.value);
-        
         postForm.addEventListener('submit', (e) => {
             console.log("entered submit post");
             //prevents the entire page from being refreshed
@@ -91,13 +171,55 @@
             db.collection('posts').add({
                 title: postForm['title'].value,
                 price: postForm['price'].value,
-                // picture: 
                 description: postForm['description'].value,
-                // user: user.uid,
-                // category: 
+                userid: user.uid,
+                date: new Date(),
+                category: postForm['category'].value,
+                image: file.name
             })
         })
+
+
     });
+    var fileButton = document.getElementById('file');
+    var file;
+    fileButton.addEventListener('change', function(e){
+        //get file
+        file = e.target.files[0];
+        firebase.storage().ref(file.name);
+        const fileRef = storageRef.child('post_images/'+userid+'/'+file.name);
+        fileRef.put(file).then(() => {
+            console.log("Uploaded file", file.name);
+        });
+    });
+
+
+
+
+
+    // SIDEBAR JAVASCRIPT
+    /* Set the width of the sidebar to 250px (show it) */
+    function openNav() {
+      document.getElementById("mySidepanel").style.width = "270px";
+    }
+
+    /* Set the width of the sidebar to 0 (hide it) */
+    function closeNav() {
+      document.getElementById("mySidepanel").style.width = "0";
+    }
+
+// DROPDOWN JAVASCRIPT
+    /* Set the width of the sidebar to 250px (show it) */
+    function openDropdown() {
+      document.getElementById("myDropdown").style.height = "100px";
+    }
+
+    /* Set the width of the sidebar to 0 (hide it) */
+    function closeDropdown() {
+      document.getElementById("myDropdown").style.height = "0";
+    }
+
+
         </script>
         </body>
 </html>
