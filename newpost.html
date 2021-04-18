@@ -176,6 +176,12 @@
                 category: postForm['category'].value,
                 image: file.name
             })
+            //clears text fields when submitted
+            postForm['title'].value = '';
+            postForm['price'].value = '';
+            postForm['description'].value = '';
+
+
         })
 
 
